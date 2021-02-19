@@ -46,3 +46,6 @@ if [ $? -eq 0 ]; then
 else 
 	echo 'failed to install binwalk, leaving the binwalk folder, please remove it manually'
 fi	
+
+# nasm to compile raw assembly
+sudo apt install nasm
