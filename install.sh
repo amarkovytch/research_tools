@@ -49,3 +49,26 @@ fi
 
 # nasm to compile raw assembly
 sudo apt install nasm
+
+# let's install patcherex for patching binaries
+## first dependencies
+git clone git@github.com:mechaphish/compilerex.git
+cd compilerex
+pip install -e . 
+cd .. && rm -rf compilerex
+
+git clone git@github.com:mechaphish/povsim.git
+cd povsim
+pip install -e .
+cd .. && rm -rf povsim
+
+sudo apt install nasm clang
+
+## now the patcherex itself
+git clone https://github.com/angr/patcherex.git
+cd patcherex
+pip install -e .
+cd .. && rm -rf patcherex
+
+
+
