@@ -1,4 +1,17 @@
 #!/bin/bash
+set -e
+
+# $1 - git path
+# $2 - folder to clone to
+function git_clone {
+	rm -rf $2
+	git clone $1 $2
+}
+
+# some basic packages
+sudo apt install python3-pip
+sudo apt-get install software-properties-common
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 # install GEF GDB Enhancement https://gef.readthedocs.io/en/master/
 if ! grep gdbinit-gef.py ~/.gdbinit > /dev/null 2>&1 ; then
@@ -22,13 +35,13 @@ fi
 
 # install binwalk
 ## deps.sh does not work properly on Ubuntu 20.0x, we need to do some of the stuff manually and patch it
-sudo add-apt-repository ppa:rock-core/qt4
-sudo apt update
+#sudo add-apt-repository ppa:rock-core/qt4 -y
+#sudo apt update
 wget ftp://ftp.si.debian.org/debian/pool/main/c/cramfs/cramfsprogs_1.1-6_amd64.deb
 sudo dpkg -i cramfsprogs_1.1-6_amd64.deb
 rm cramfsprogs_1.1-6_amd64.deb
 
-git clone git@github.com:ReFirmLabs/binwalk.git
+git_clone git@github.com:ReFirmLabs/binwalk.git binwalk
 # remove wrong packages
 sed -i 's/python-pip//g; s/python-lzo//g; s/python-lzma//g; s/pip install/pip3 install/g' binwalk/deps.sh
 sed -i 's/pip3 $PIP_COMMANDS/pip3/g' binwalk/deps.sh
@@ -39,7 +52,7 @@ sed -i '/\#!\/bin\/bash/a set -e' binwalk/deps.sh
 sed -i 's/https:\/\/github.com\/devttys0\/sasquatch/https:\/\/github.com\/svenschwermer\/sasquatch.git/g' binwalk/deps.sh
 sed -i 's/cd sasquatch/cd sasquatch \&\& git checkout gcc10/g' binwalk/deps.sh
 
-sudo binwalk/deps.sh && cd binwalk && sudo python3 setup.py install
+echo "Y" | sudo tee binwalk/deps.sh && cd binwalk && sudo python3 setup.py install
 if [ $? -eq 0 ]; then
 	cd ..
 	sudo rm -rf binwalk
@@ -52,12 +65,12 @@ sudo apt install nasm
 
 # let's install patcherex for patching binaries
 ## first dependencies
-git clone git@github.com:mechaphish/compilerex.git
+git_clone git@github.com:mechaphish/compilerex.git compilerex
 cd compilerex
 pip install -e . 
 cd .. && rm -rf compilerex
 
-git clone git@github.com:mechaphish/povsim.git
+git_clone git@github.com:mechaphish/povsim.git povsim
 cd povsim
 pip install -e .
 cd .. && rm -rf povsim
@@ -65,7 +78,7 @@ cd .. && rm -rf povsim
 sudo apt install nasm clang
 
 ## now the patcherex itself
-git clone https://github.com/angr/patcherex.git
+git_clone https://github.com/angr/patcherex.git patcherex
 cd patcherex
 pip install -e .
 cd .. && rm -rf patcherex
