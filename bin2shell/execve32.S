@@ -6,7 +6,7 @@ section .text
       push eax ; push last '\0'
       push 0x68732f2f ; push /bin/sh
       push 0x6e69622f
-      mov ebx, esp
+      mov ebx, esp ; first param
       xor ecx, ecx ; 0 to second param
       xor edx, edx ; 0 to third param
       mov al, 0x0b ; execve syscall

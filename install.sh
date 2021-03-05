@@ -15,13 +15,14 @@ function git_clone {
 function git_clone_pip_install {
 	git_clone $1 $2
 	pip install ./$2
-	rm -rf $1
+	rm -rf $2
 }
 
 # some basic packages
 sudo apt install python3-pip
 sudo apt-get install software-properties-common
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+sudo apt install hexedit
 
 # install GEF GDB Enhancement https://gef.readthedocs.io/en/master/
 if ! grep gdbinit-gef.py ~/.gdbinit > /dev/null 2>&1 ; then

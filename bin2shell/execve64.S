@@ -8,6 +8,6 @@ section .text
       xor rsi, rsi ; 0 to third param
       push 0x68732f2f ; push /bin/sh
       push 0x6e69622f
-      mov rdi, rsp
+      mov rdi, rsp ; first param
       mov al, 59 ; execve syscall
       syscall
