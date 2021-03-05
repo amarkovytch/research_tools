@@ -1,11 +1,21 @@
 #!/bin/bash
 set -e
 
+# clones repository into particular directory
 # $1 - git path
 # $2 - folder to clone to
 function git_clone {
 	rm -rf $2
 	git clone $1 $2
+}
+
+# clone and then pip install frm the given folder and remove it
+# $1 - git path 
+# $2 - the folder to clone and install from
+function git_clone_pip_install {
+	git_clone $1 $2
+	pip install ./$2
+	rm -rf $1
 }
 
 # some basic packages
@@ -65,23 +75,11 @@ sudo apt install nasm
 
 # let's install patcherex for patching binaries
 ## first dependencies
-git_clone git@github.com:mechaphish/compilerex.git compilerex
-cd compilerex
-pip install -e . 
-cd .. && rm -rf compilerex
-
-git_clone git@github.com:mechaphish/povsim.git povsim
-cd povsim
-pip install -e .
-cd .. && rm -rf povsim
+git_clone_pip_install git@github.com:mechaphish/compilerex.git compilerex
+git_clone_pip_install git@github.com:mechaphish/povsim.git povsim
 
 sudo apt install nasm clang
 
 ## now the patcherex itself
-git_clone https://github.com/angr/patcherex.git patcherex
-cd patcherex
-pip install -e .
-cd .. && rm -rf patcherex
-
-
+git_clone_pip_install https://github.com/angr/patcherex.git patcherex
 
