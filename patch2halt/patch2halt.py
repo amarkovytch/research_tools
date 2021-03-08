@@ -1,24 +1,29 @@
-import sys
-from patcherex.backends.detourbackend import DetourBackend
-from patcherex.patches import *
+#!/bin/python
 
-HALT_COMMAND = '''
-    hlt
-'''
+import sys
+from pwn import *
+
 
 def main():
-    binary_path = sys.argv[1]
-    output_path = sys.argv[2]
+    input = sys.argv[1]
+    output = sys.argv[2]
 
-    backend = DetourBackend(binary_path)
+    e = ELF(input)
 
-    patch = [AddEntryPointPatch(HALT_COMMAND)]
-    backend.apply_patches(patch)
+    code = 'endless: jmp endless'
+    code_len = len(asm(code))
 
-    backend.save(output_path)
+    main_addr = e.symbols[b'main']
+    main_orig_code = e.read(main_addr, code_len)
 
+    print('Patching these {} bytes of code {} at the beginning of main with infinite loop ({})'
+          .format(code_len, enhex(main_orig_code), enhex(asm(code))))
+    print('Now you can attach with gdb to the running (stuck) process: gdb <PATH> <PID>')
+    print('Once attached patch main code to original after each run + ctrl c:')
+    print('patch word {} {}'.format(hex(main_addr), hex(u16(main_orig_code))))
+    e.asm(main_addr, code)
+    e.save(output)
 
 
 if __name__ == '__main__':
     main()
-

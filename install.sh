@@ -19,6 +19,8 @@ function git_clone_pip_install {
 
 # some basic packages
 sudo apt install python3-pip
+python -m pip install --upgrade pip
+pip install ipython
 sudo apt-get install software-properties-common
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 sudo apt install hexedit
@@ -88,3 +90,5 @@ sudo apt install nasm clang
 ## now the patcherex itself
 git_clone_pip_install https://github.com/angr/patcherex.git $PIP_INSTALL_DIR/patcherex
 
+# some more CTF libraries
+pip install --upgrade git+https://github.com/arthaud/python3-pwntools.git
