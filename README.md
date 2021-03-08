@@ -10,6 +10,11 @@ A small utility to patch binary so that it halts at main function. This is usefu
 * patch2halt.py binary patched_binary
 
 
-## tribute
+## tribute (used code taken from these resources directly or with some modification)
 
 bin2shell - https://github.com/touhidshaikh/bin2shell
+
+## Useful libraries (some already part of install.sh)
+* [PWNTools](https://python3-pwntools.readthedocs.io/en/latest/index.html) - An absolute must for easy ELF modification and binary exploitation
+* [Patcherex](https://github.com/angr/patcherex) - Supposedly provides some extended binary patching capabilities (didn't really use it yet)
+
