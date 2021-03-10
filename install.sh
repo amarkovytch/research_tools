@@ -24,6 +24,7 @@ pip install ipython
 sudo apt-get install software-properties-common
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 sudo apt install hexedit
+sudo apt install qemu-user-static
 
 # install GEF GDB Enhancement https://gef.readthedocs.io/en/master/
 if ! grep gdbinit-gef.py ~/.gdbinit > /dev/null 2>&1 ; then
