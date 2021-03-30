@@ -92,4 +92,5 @@ sudo apt install nasm clang
 git_clone_pip_install https://github.com/angr/patcherex.git $PIP_INSTALL_DIR/patcherex
 
 # some more CTF libraries
-pip install --upgrade git+https://github.com/arthaud/python3-pwntools.git
+git_clone_pip_install https://github.com/Gallopsled/pwntools.git $PIP_INSTALL_DIR/pwntools
+
