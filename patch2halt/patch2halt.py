@@ -13,7 +13,7 @@ def main():
     code = 'endless: jmp endless'
     code_len = len(asm(code))
 
-    main_addr = e.symbols[b'main']
+    main_addr = e.symbols['main']
     main_orig_code = e.read(main_addr, code_len)
 
     print('Patching these {} bytes of code {} at the beginning of main with infinite loop ({})'
