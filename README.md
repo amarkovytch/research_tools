@@ -1,4 +1,4 @@
-# A collection of various research tools
+# A collection of various research tools (work in progress)
 
 ## bin2shell
 Create raw bytes from assembly file to be used in shellcode
@@ -10,7 +10,7 @@ A small utility to patch binary so that it halts at main function. This is usefu
 * patch2halt.py binary patched_binary
 
 
-## tribute (used code taken from these resources directly or with some modification)
+## Tribute (used code taken from these resources directly or with some modification)
 
 bin2shell - https://github.com/touhidshaikh/bin2shell
 
